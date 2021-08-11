@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head::head"></head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:replace="fragments/navigation::navigation"></nav>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <a class="btn btn-primary" th:href="@{/categories/new}" sec:authorize="hasRole('ADMIN')">Add Product
+                Category</a>
+        </div>
+        <div class="col-12 mt-3">
+            <form class="form-inline" th:method="get" ,
+                  th:with="titleCategoryFilter=${param.productCategoryTitleFilter}">
+                <div th:replace="fragments/filter::filter ('productCategoryTitleFilter', 'Title filter', ${titleCategoryFilter}, 'text')"></div>
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+            </form>
+        </div>
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th scope="col" th:replace="fragments/sort_header_product_category:: sort_header('Id', 'id')"></th>
+                    <th scope="col"
+                        th:replace="fragments/sort_header_product_category:: sort_header('Product Category Title', 'title')"></th>
+                    <th scope="col" sec:authorize="hasRole('ADMIN')">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${product_category.hasContent()}" th:each="category : ${product_category.content}">
+                    <th scope="row" th:text="${category.id}">1</th>
+                    <td th:text="${category.title}">a</td>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <a class="btn btn-success" th:href="@{/categories/{id}(id = ${category.id})}">
+                            <i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" th:href="@{/categories/{id}/delete (id = ${category.id})}">
+                            <i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr th:unless="${product_category.hasContent()}">
+                    <td colspan="4"> No product category data</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${product_category.hasContent()}" class="col-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"
+                        th:classappend="${product_category.isFirst()} ? 'disabled'">
+                        <a th:replace="fragments/pagination_product_category::pagination('&laquo;', ${product_category.number})"></a>
+                    </li>
+                    <li class="page-item"
+                        th:each="num: ${#numbers.sequence(1, product_category.totalPages)}"
+                        th:classappend="${num == product_category.number + 1} ? 'active'">
+                        <a th:text="${num}"
+                           th:replace="fragments/pagination_product_category::pagination(${num}, ${num})"></a>
+                    </li>
+                    <li class="page-item"
+                        th:classappend="${product_category.isLast()} ? 'disabled'">
+                        <a th:replace="fragments/pagination_product_category::pagination('&raquo;', ${product_category.number+2})"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/scripts::scripts"></th:block>
+
+</body>
+</html>
