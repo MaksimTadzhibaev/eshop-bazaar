@@ -4,26 +4,25 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "product_category")
-public class ProductCategory {
-
+@Table(name = "provider")
+public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProductCategory")
+    @Column(name = "idProvider")
     private Long id;
 
-    @Column(name = "titleProductCategory", nullable = false)
+    @Column(name = "titleProvider", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "productCategory")
+    @OneToMany(mappedBy = "provider")
     private List<Product> products;
 
-    public ProductCategory(Long id, String title) {
+    public Provider(Long id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public ProductCategory() {
+    public Provider() {
     }
 
     public Long getId() {

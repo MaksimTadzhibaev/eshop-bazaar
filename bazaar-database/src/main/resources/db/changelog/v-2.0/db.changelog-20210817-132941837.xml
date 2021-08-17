@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="maks_tadzh (generated)" id="1629206992687-1">
+        <createTable tableName="provider">
+            <column autoIncrement="true" name="idProvider" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="providerPK"/>
+            </column>
+            <column name="titleProvider" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maks_tadzh (generated)" id="1629206992687-2">
+        <addColumn tableName="products">
+            <column name="provider_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="maks_tadzh (generated)" id="1629206992687-3">
+        <addForeignKeyConstraint baseColumnNames="provider_id" baseTableName="products" constraintName="FKpftohteqqqyaodpfg09rfu748" deferrable="false" initiallyDeferred="false" referencedColumnNames="idProvider" referencedTableName="provider" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
