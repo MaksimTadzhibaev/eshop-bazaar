@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<a th:fragment="pagination(nameBtn, numPage)" class="page-link"
+   th:href="@{/user(page=${numPage},
+            size=${users.size},
+            usernameFilter=${param.usernameFilter},
+            minAge=${param.minAge},
+            maxAge=${param.maxAge},
+            sorting=${param.sorting},
+            sortingParam=${param.sortingParam})}">[[${nameBtn}]]
+</a>
+</html>
