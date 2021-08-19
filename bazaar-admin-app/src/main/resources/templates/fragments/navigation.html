@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation">
-    <a class="navbar-brand" href="#">Admin panel</a>
+    <a class="navbar-brand" href="#">E-bazaar</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,10 @@
                 <a class="nav-link" th:href="@{/product}">Products</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/categories}">Products Category</a>
+                <a class="nav-link" th:href="@{/categories}">Category</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/provider}">Provider</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/user}" sec:authorize="hasRole('ADMIN')">Users</a>

@@ -15,7 +15,7 @@ import ru.tadzh.service.ProductCategoryService;
 @RequestMapping("/categories")
 public class ProductCategoryController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductCategoryController.class);
 
     private final ProductCategoryService productCategoryService;
 

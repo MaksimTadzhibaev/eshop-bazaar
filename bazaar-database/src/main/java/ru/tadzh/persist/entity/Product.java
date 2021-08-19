@@ -21,12 +21,17 @@ public class Product {
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
 
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
     public Product(String name, Double cost) {
         this.title = name;
         this.cost = cost;
     }
 
-    public Product(String name, Double cost, ProductCategory productCategory) {
+    public Product(String name, Double cost, ProductCategory productCategory, Provider provider) {
+        this.provider = provider;
         this.productCategory = productCategory;
         this.title = name;
         this.cost = cost;
@@ -65,5 +70,13 @@ public class Product {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class BazaarAdminAppApplication {
+public class  BazaarAdminAppApplication {
 
     @Bean
     public PasswordEncoder passwordEncoder() {

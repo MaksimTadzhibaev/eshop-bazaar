@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tadzh.persist.entity.Product;
 import ru.tadzh.persist.repository.ProductCategoryRepository;
+import ru.tadzh.persist.repository.ProviderRepository;
 import ru.tadzh.service.ProductService;
+
+import javax.persistence.spi.PersistenceProviderResolver;
 
 @Controller
 @RequestMapping("/product")
@@ -21,11 +24,15 @@ public class ProductController {
 
     private final ProductService productService;
     private final ProductCategoryRepository productCategoryRepository;
+    private final ProviderRepository providerRepository;
+
 
     @Autowired
-    public ProductController(ProductService productService, ProductCategoryRepository productCategoryRepository) {
+    public ProductController(ProductService productService, ProductCategoryRepository productCategoryRepository, ProviderRepository providerRepository) {
         this.productService = productService;
         this.productCategoryRepository = productCategoryRepository;
+        this.providerRepository = providerRepository;
+
     }
 
     @GetMapping
@@ -41,6 +48,7 @@ public class ProductController {
         logger.info("New product page requested");
         model.addAttribute("product", new Product());
         model.addAttribute("categories", productCategoryRepository.findAll());
+        model.addAttribute("providers", providerRepository.findAll());
         return "product_form";
     }
 
@@ -49,6 +57,7 @@ public class ProductController {
         logger.info("Edit product page requested");
         model.addAttribute("product", productService.findById(id));
         model.addAttribute("categories", productCategoryRepository.findAll());
+        model.addAttribute("providers", providerRepository.findAll());
         return "product_form";
     }
 
@@ -57,6 +66,7 @@ public class ProductController {
         logger.info("Saving product or save product changes");
         productService.save(product);
         model.addAttribute("categories", productCategoryRepository.findAll());
+        model.addAttribute("providers", providerRepository.findAll());
         return "redirect:/product";
     }
 
@@ -65,6 +75,7 @@ public class ProductController {
         logger.info("Delete product");
         productService.deleteById(id);
         model.addAttribute("categories", productCategoryRepository.findAll());
+        model.addAttribute("providers", providerRepository.findAll());
         return "redirect:/product";
     }
 }

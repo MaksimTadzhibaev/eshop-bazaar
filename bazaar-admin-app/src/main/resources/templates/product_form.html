@@ -30,6 +30,14 @@
                                 th:value="${productCategory.id}"></option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="provider">Product category</label>
+                    <select multiple class="form-control" id="provider" th:field="*{provider}" required>
+                        <option th:each="provider : ${providers}"
+                                th:text="${provider.title}"
+                                th:value="${provider.id}"></option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
