@@ -1,4 +1,6 @@
-package ru.tadzh.controller;
+package ru.tadzh.controller.dto;
+
+import ru.tadzh.controller.dto.RoleDto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
