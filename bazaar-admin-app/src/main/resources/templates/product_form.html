@@ -41,16 +41,12 @@
                 <div class="form-group">
                     <label for="newPictures">Product image</label>
                     <input th:field="*{newPictures}" type="file" class="form-control" id="newPictures"
-                           placeholder="Upload new product picture">
+                           placeholder="Upload new product picture" multiple>
                 </div>
-                <div class="col-12">
                     <div class="form-group">
                         <figure class="figure" th:each="pic : ${product.pictureId}">
-                            <form class="d-inline" th:method="delete"
-                                  th:action="@{/picture/{productId}/{pictureId}(productId=${product.id}, pictureId=${pic})}">
                                 <img th:src="@{/picture/{pictureId}(pictureId=${pic})}"
-                                     class="img-fluid img-thumbnail" width="200px">
-                            </form>
+                                     class="img-fluid img-thumbnail" width="150px">
                         </figure>
                     </div>
                 </div>
