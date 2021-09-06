@@ -5,16 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.tadzh.persist.entity.Product;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ru.tadzh.controller.dto.ProductDto;
 import ru.tadzh.persist.repository.ProductCategoryRepository;
 import ru.tadzh.persist.repository.ProviderRepository;
+import ru.tadzh.service.PictureService;
 import ru.tadzh.service.ProductService;
 
-import javax.persistence.spi.PersistenceProviderResolver;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/product")
@@ -25,14 +24,17 @@ public class ProductController {
     private final ProductService productService;
     private final ProductCategoryRepository productCategoryRepository;
     private final ProviderRepository providerRepository;
-
+    private final PictureService pictureService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductCategoryRepository productCategoryRepository, ProviderRepository providerRepository) {
+    public ProductController(ProductService productService,
+                             ProductCategoryRepository productCategoryRepository,
+                             ProviderRepository providerRepository,
+                             PictureService pictureService) {
         this.productService = productService;
         this.productCategoryRepository = productCategoryRepository;
         this.providerRepository = providerRepository;
-
+        this.pictureService = pictureService;
     }
 
     @GetMapping
@@ -46,7 +48,7 @@ public class ProductController {
     @GetMapping("/new")
     public String newProductForm(Model model) {
         logger.info("New product page requested");
-        model.addAttribute("product", new Product());
+        model.addAttribute("product", new ProductDto());
         model.addAttribute("categories", productCategoryRepository.findAll());
         model.addAttribute("providers", providerRepository.findAll());
         return "product_form";
@@ -55,18 +57,22 @@ public class ProductController {
     @GetMapping("/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
         logger.info("Edit product page requested");
-        model.addAttribute("product", productService.findById(id));
+        model.addAttribute("product", productService.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product not found")));
         model.addAttribute("categories", productCategoryRepository.findAll());
         model.addAttribute("providers", providerRepository.findAll());
         return "product_form";
     }
 
     @PostMapping
-    public String update(Product product, Model model) {
+    public String update(@Valid @ModelAttribute("product") ProductDto product, BindingResult result, Model model) {
         logger.info("Saving product or save product changes");
+        if (result.hasErrors()) {
+            model.addAttribute("categories", productCategoryRepository.findAll());
+            model.addAttribute("providers", providerRepository.findAll());
+            return "product_form";
+        }
         productService.save(product);
-        model.addAttribute("categories", productCategoryRepository.findAll());
-        model.addAttribute("providers", providerRepository.findAll());
         return "redirect:/product";
     }
 

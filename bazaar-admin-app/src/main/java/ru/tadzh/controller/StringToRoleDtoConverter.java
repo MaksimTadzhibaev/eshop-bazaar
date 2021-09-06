@@ -2,6 +2,7 @@ package ru.tadzh.controller;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+import ru.tadzh.controller.dto.RoleDto;
 
 @Component
 public class StringToRoleDtoConverter implements Converter<String, RoleDto> {

@@ -27,5 +27,6 @@
         <module>bazaar-database</module>
         <module>bazaar-admin-app</module>
         <module>bazaar-backend-api-app</module>
+        <module>bazaar-picture-service</module>
     </modules>
 </project>

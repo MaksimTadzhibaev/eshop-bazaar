@@ -1,4 +1,4 @@
-package ru.tadzh.controller;
+package ru.tadzh.controller.dto;
 
 import java.util.Objects;
 

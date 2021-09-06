@@ -1,7 +1,7 @@
 package ru.tadzh.service;
 
 import org.springframework.data.domain.Page;
-import ru.tadzh.controller.UserDto;
+import ru.tadzh.controller.dto.UserDto;
 import ru.tadzh.controller.UserListParams;
 
 import java.util.List;
