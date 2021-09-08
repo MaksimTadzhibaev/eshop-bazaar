@@ -16,4 +16,16 @@ public final class ProductSpecifications {
     public static Specification<Product> maxCost(Double maxCost) {
         return (root, query, builder) -> builder.le(root.get("cost"), maxCost);
     }
+
+    public static Specification<Product> byCategory(long categoryId) {
+        return (root, query, builder) -> builder.equal(root.get("category").get("id"), categoryId);
+    }
+
+    public static Specification<Product> byProvider(long providerId) {
+        return (root, query, builder) -> builder.equal(root.get("provider").get("id"), providerId);
+    }
+
+    public static Specification<Product> byName(String pattern) {
+        return (root, query, builder) -> builder.like(root.get("name"), "%" + pattern + "%");
+    }
 }
