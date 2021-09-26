@@ -1,18 +1,23 @@
-import { Injectable } from '@angular/core';
-import {Product} from "../model/product";
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Page} from "../model/page";
+import {ProductFilterDto} from "../model/product-filter";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private products: Product[] = [];
-
   constructor(private http: HttpClient) { }
 
-  public findAll() {
-    return this.http.get<Page>('/api/v1/product/all').toPromise();
+  public findAll(productFilter?: ProductFilterDto, page? : number) : Observable<Page> {
+    let params = new HttpParams();
+    if (productFilter?.title != null) {
+      params = params.set('title', productFilter?.title);
+    }
+    params = params.set("page", page != null ? page : 1);
+    params = params.set("size", 6);
+    return this.http.get<Page>('/api/v1/product/all', { params: params });
   }
 }

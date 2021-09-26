@@ -25,14 +25,14 @@ public class ProductController {
     @GetMapping("/all")
     public Page<ProductDto> findAll(@RequestParam("categoryId") Optional<Long> categoryId,
                                     @RequestParam("providerId") Optional<Long> providerId,
-                                    @RequestParam("namePattern") Optional<String> namePattern,
+                                    @RequestParam("title") Optional<String> title,
                                     @RequestParam("page") Optional<Integer> page,
                                     @RequestParam("size") Optional<Integer> size,
                                     @RequestParam("sortField") Optional<String> sortField) {
         return productService.findAll(
                 categoryId,
                 providerId,
-                namePattern,
+                title,
                 page.orElse(1) - 1,
                 size.orElse(5),
                 sortField.filter(fld -> !fld.isBlank()).orElse("id"));

@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> findAll(Optional<Long> categoryId, Optional<Long> providerId, Optional<String> namePattern,
+    public Page<ProductDto> findAll(Optional<Long> categoryId, Optional<Long> providerId, Optional<String> title,
                                     Integer page, Integer size, String sortField) {
         Specification<Product> spec = Specification.where(null);
         if (categoryId.isPresent() && categoryId.get() != -1) {
@@ -37,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
         if (providerId.isPresent() && providerId.get() != -1) {
             spec = spec.and(ProductSpecifications.byProvider(providerId.get()));
         }
-        if (namePattern.isPresent()) {
-            spec = spec.and(ProductSpecifications.byName(namePattern.get()));
+        if (title.isPresent()) {
+            spec = spec.and(ProductSpecifications.productTitlePrefix(title.get()));
         }
         return productRepository.findAll(spec, PageRequest.of(page, size, Sort.by(sortField)))
                 .map(product -> new ProductDto(product.getId(),

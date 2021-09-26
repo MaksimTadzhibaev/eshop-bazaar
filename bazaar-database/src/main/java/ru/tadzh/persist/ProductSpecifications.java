@@ -25,7 +25,4 @@ public final class ProductSpecifications {
         return (root, query, builder) -> builder.equal(root.get("provider").get("id"), providerId);
     }
 
-    public static Specification<Product> byName(String pattern) {
-        return (root, query, builder) -> builder.like(root.get("name"), "%" + pattern + "%");
-    }
 }
