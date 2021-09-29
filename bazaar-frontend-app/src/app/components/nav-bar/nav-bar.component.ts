@@ -3,6 +3,7 @@ import {NavigationEnd, Router} from "@angular/router";
 import {CART_URL} from "../../pages/cart-page/cart-page.component";
 import {PRODUCT_GALLERY_URL} from "../../pages/product-gallery-page/product-gallery-page.component";
 import {ORDERS_URL} from "../../pages/order-page/order-page.component";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,7 +16,8 @@ export class NavBarComponent implements OnInit {
   isCartPage: boolean = false;
   isOrderPage: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              public auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
+    this.auth.logout();
     this.router.navigateByUrl("/");
   }
 
