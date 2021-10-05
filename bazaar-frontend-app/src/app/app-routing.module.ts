@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PRODUCT_GALLERY_URL, ProductGalleryComponent} from "./pages/product-gallery/product-gallery.component";
+import {PRODUCT_GALLERY_URL, ProductGalleryPageComponent} from "./pages/product-gallery-page/product-gallery-page.component";
+import {PRODUCT_INFO_URL, ProductInfoPageComponent} from "./pages/product-info-page/product-info-page.component";
+import {CART_URL, CartPageComponent} from "./pages/cart-page/cart-page.component";
+import {OrderPageComponent, ORDERS_URL} from "./pages/order-page/order-page.component";
 
 const routes: Routes = [
   {path: "", pathMatch: "full", redirectTo: PRODUCT_GALLERY_URL},
-  {path: PRODUCT_GALLERY_URL, component: ProductGalleryComponent},
+  {path: PRODUCT_GALLERY_URL, component: ProductGalleryPageComponent},
+  {path: PRODUCT_INFO_URL, component: ProductInfoPageComponent},
+  {path: CART_URL, component: CartPageComponent},
+  {path: ORDERS_URL, component: OrderPageComponent},
 ];
 
 @NgModule({
