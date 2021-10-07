@@ -30,9 +30,9 @@
         <module>bazaar-admin-app</module>
         <module>bazaar-backend-api-app</module>
         <module>bazaar-picture-service</module>
-        <module>spring-eureka</module>
         <module>spring-cloud-config</module>
         <module>spring-cloud-gateway</module>
+        <module>spring-eureka</module>
     </modules>
 
     <dependencyManagement>
