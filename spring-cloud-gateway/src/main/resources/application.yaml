@@ -13,8 +13,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: bazaar-picture-service
-          uri: lb://BAZAAR-PICTURE-SERVICE
+        - id: picture-service-app
+          uri: lb://PICTURE-SERVICE-APP
           predicates:
             - Path=/api/v1/picture/**
         - id: bazaar-backend-api-app
