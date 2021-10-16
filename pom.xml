@@ -33,6 +33,7 @@
         <module>spring-cloud-config</module>
         <module>spring-cloud-gateway</module>
         <module>spring-eureka</module>
+        <module>bazaar-delivery-service</module>
     </modules>
 
     <dependencyManagement>
