@@ -17,7 +17,7 @@ export class OrderPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.orderService.findOrdersByUser(1)
+    this.orderService.findOrdersByCurrentUser()
       .subscribe(orders => {
           this.orders = orders;
         },

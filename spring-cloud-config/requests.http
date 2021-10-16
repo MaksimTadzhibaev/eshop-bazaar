@@ -1,0 +1,9 @@
+GET http://localhost:8888/bazaar-backend-api/dev
+
+###
+
+GET http://localhost:8888/config/application.properties
+
+###
+
+GET http://localhost:8888/bazaar-picture-service/dev

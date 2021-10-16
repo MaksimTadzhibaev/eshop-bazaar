@@ -9,7 +9,11 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  public findOrdersByUser(userId:number) {
-    return this.http.get<Order[]>(`/api/v1/order/${userId}/user`);
+  public findOrdersByCurrentUser() {
+    return this.http.get<Order[]>('/api/v1/order/all');
+  }
+
+  public createOrder() {
+    return this.http.post<any>('/api/v1/order', {});
   }
 }
