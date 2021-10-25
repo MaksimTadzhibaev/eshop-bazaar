@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../services/order.service";
 import {Order} from "../../model/order";
+import {OrderStatusService} from "../../services/order-status.service";
 
 export const ORDERS_URL = 'order';
 
@@ -12,8 +13,11 @@ export const ORDERS_URL = 'order';
 export class OrderPageComponent implements OnInit {
 
   orders: Order[] = [];
+  msgStatus: any;
+  msgId: any;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private orderStatusService: OrderStatusService)  {
   }
 
   ngOnInit(): void {
@@ -23,7 +27,13 @@ export class OrderPageComponent implements OnInit {
         },
         error => {
           console.log(error);
-        })
+        });
+    this.orderStatusService.onMessage('/order_out/order')
+      .subscribe(msg => this.msgId = msg.id);
+    this.orderStatusService.onMessage('/order_out/order')
+      .subscribe(msg => this.msgStatus = msg.state);
+    this.orderStatusService.onMessage('/order_out/order')
+      .subscribe(msg => console.log(`New message with status ${msg.state}`));
   }
 
 }
