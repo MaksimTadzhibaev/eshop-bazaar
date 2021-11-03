@@ -51,13 +51,13 @@ public class ProductControllerTest {
 
     @Test
     public void testProductDetails() throws Exception {
-        ProductCategory category = categoryRepository.save(new ProductCategory(null, "Category"));
+        ProductCategory category = categoryRepository.save(new ProductCategory(null, "ProductCategory"));
         Provider provider = providerRepository.save(new Provider(null, "Provider"));
         Product product = productRepository.save(new Product(null, "Product", new BigDecimal(324), category, provider ));
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/product/all")
-                .param("categoryId", category.getId().toString())
+                .param("productCategoryId", category.getId().toString())
                 .param("providerId", provider.getId().toString())
                 .param("page", "1")
                 .param("size", "5")
@@ -65,6 +65,8 @@ public class ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content", hasSize(1)))
-                .andExpect(jsonPath("$.content[0].name", is(product.getTitle())));
+                .andExpect(jsonPath("$.content[0].title", is(product.getTitle())));
     }
+
+
 }
