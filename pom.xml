@@ -35,6 +35,7 @@
         <module>spring-eureka</module>
         <module>bazaar-delivery-service</module>
         <module>spring-integration-demo</module>
+        <module>bazaar-ui-tests</module>
     </modules>
 
     <dependencyManagement>
