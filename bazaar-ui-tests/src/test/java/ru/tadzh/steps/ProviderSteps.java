@@ -22,51 +22,44 @@ public class ProviderSteps {
         webDriver.get(DriverInitializer.getProperty("provider.url"));
     }
 
-    @Then("I see button {string}")
-    public void iSeeButton(String btn_text) throws InterruptedException {
-        Thread.sleep(3000);
-        WebElement webElement = webDriver.findElement(By.xpath("/html/body/div[2]/div/div[1]/a"));
-        assertThat(webElement.getText()).isEqualTo(btn_text);
-    }
-
     @And("I click on Add Provider button")
-    public void iClickOnAddProviderButton() throws InterruptedException {
-        Thread.sleep(3000);
-        WebElement webElement = webDriver.findElement(By.xpath("/html/body/div[2]/div/div[1]/a"));
+    public void iSeeButton() throws InterruptedException {
+        Thread.sleep(1000);
+        WebElement webElement = webDriver.findElement(By.id("btn-newProvider"));
         webElement.click();
     }
 
-    @And("I provide Name as {string}")
-    public void iProvideTitleAs(String name) throws InterruptedException {
-        Thread.sleep(3000);
-        WebElement webElement = webDriver.findElement(By.id("name"));
-        webElement.sendKeys(name);
-        webElement = webDriver.findElement(By.id("cost"));
+
+    @And("I provide title as {string}")
+    public void iProvideTitleAs(String title) throws InterruptedException {
+        Thread.sleep(1000);
+        WebElement webElement = webDriver.findElement(By.id("title"));
+        webElement.sendKeys(title);
     }
 
     @And("I click on Submit button")
     public void iClickOnSubmitButton() throws InterruptedException {
-        Thread.sleep(3000);
-        WebElement webElement = webDriver.findElement(By.xpath("/html/body/div[2]/div/div/form/button"));
+        Thread.sleep(1000);
+        WebElement webElement = webDriver.findElement(By.id("btn-newProviderSubmit"));
         webElement.click();
     }
 
     @Then("in table i see provider {string}")
     public void inTableISeeCategory(String name) throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(1000);
         boolean isContains = checkProvider(name);
 
         assertTrue(isContains);
     }
 
-    private boolean checkProvider(String name) {
-        List<WebElement> elements = webDriver.findElements(By.xpath("/html/body/div[2]/div/div[3]/table"));
+    private boolean checkProvider(String title) {
+        List<WebElement> elements = webDriver.findElements(By.xpath("//*[@id='providers']/tbody/tr/td[1]"));
         List<String> collect = elements.stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
         boolean isContains = false;
         for (String str: collect) {
-            if (str.contains(name)) {
+            if (str.contains(title)) {
                 isContains = true;
                 break;
             }
