@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-primary" th:href="@{/provider/new}" sec:authorize="hasRole('ADMIN')">Add provider</a>
+            <a id="btn-newProvider" class="btn btn-primary" th:href="@{/provider/new}" sec:authorize="hasRole('ADMIN')">Add provider</a>
         </div>
         <div class="col-12 mt-3">
             <form class="form-inline" th:method="get" ,
@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="col-12">
-            <table class="table table-bordered my-2">
+            <table id="providers" class="table table-bordered my-2">
                 <thead>
                 <tr>
                     <th scope="col" th:replace="fragments/sort_header_provider:: sort_header('Id', 'id')"></th>
